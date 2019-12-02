@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+    <script>
+        Vue.filter("xixi",function(value){
+                    return value.replace("3","4");
+                });
+    </script>
+</head>
+<body>
+    <div id="thh">{{message|xixi}}</div>
+    <button id="thh2" :tittle="message|xixi">哈哈哈</button>
+    <div>{{message}}</div>
+   
+</body>
+ <script>
+     
+     var vm=new Vue({
+            el:"#thh",
+            data:{
+                message:"_123321"
+            },
+            methods:{
+                myfunction:function(value){
+                    return value.replace("3","4");
+                },
+            }
+        })
+         var vm=new Vue({
+            el:"#thh2",
+            data:{
+                message:"_123321"
+            },
+            methods:{
+                myfunction:function(value){
+                    return value.replace("3","4");
+                },
+            }
+        })
+        
+    </script>
+</html>
