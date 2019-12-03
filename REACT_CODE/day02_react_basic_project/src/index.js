@@ -59,10 +59,10 @@ ReactDOM.render(<Father/>,document.getElementById("root4"))
 // function Clock(params) {
 //     return <h2>现在是北京时间{params.date.toLocaleTimeString()}</h2>
 // }
-function tick(params) {//tick不是组件，只是一个函数
-    ReactDOM.render(<Clock date={new Date()}/>,document.getElementById("root5"))
+function tick1(params) {//tick不是组件，只是一个函数
+    ReactDOM.render(<Clock1 date={new Date()}/>,document.getElementById("root5"))
 }
-setInterval(tick,1000)
+setInterval(tick1,1000)
 
 //6.2将函数组件转换成 class 组件
 //通过以下五步将 Clock 的函数组件转成 class 组件：
@@ -71,9 +71,42 @@ setInterval(tick,1000)
 // 将函数体移动到 render() 方法之中。
 // 在 render() 方法中使用 this.props 替换 params。
 // 删除原来的Clock函数。
-class Clock extends React.Component{
+class Clock1 extends React.Component{
     render(){
-        return <h2>现在是北京时间{this.props.date.toLocaleTimeString()}</h2>
+        return <h2>表一：现在是北京时间{this.props.date.toLocaleTimeString()}</h2>
     }
 }
 
+//6.3使用state代替“标签属性传值”的方式
+class Clock2 extends React.Component{
+    constructor(props){
+        super(props)
+        this.state={date:new Date()}
+    }
+    render(){
+        return <h2>表二：现在是北京时间{this.state.date.toLocaleTimeString()}</h2>
+    }
+}
+function tick2() {//tick不是组件，只是一个函数
+    ReactDOM.render(<Clock2 />,document.getElementById("root6"))
+}
+setInterval(tick2,1000)//这个计时器不会刷新页面的计时，因为date的值在Clock2构造时就被固定了
+
+
+//6.4添加生命周期以刷新计时
+class Clock3 extends React.Component{
+    constructor(props){
+        super(props)
+        this.state={date:new Date()}
+    }
+    componentDidMount(){//组件挂载到DOM后运行
+        setInterval(()=>this.tick3(),1000)//为什么不能写成setInterval(this.tick3,1000)？因为在setInterval中，this指向的是global
+    }
+    tick3(){//使用setState改变state的值，每当检测到state改变，就自动调用Clock3的render方法
+        this.setState({date:new Date()})
+    }
+    render(){
+        return <h2>表三：现在是北京时间{this.state.date.toLocaleTimeString()}</h2>
+    }
+}
+ReactDOM.render(<Clock3 />,document.getElementById("root7"))
