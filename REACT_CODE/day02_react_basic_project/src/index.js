@@ -97,12 +97,13 @@ setInterval(tick2,1000)//这个计时器不会刷新页面的计时，因为date
 class Clock3 extends React.Component{
     constructor(props){
         super(props)
-        this.state={date:new Date()}
+        this.state={date:new Date()}//构造函数是唯一可以给 this.state 直接赋值的地方
+
     }
     componentDidMount(){//组件挂载到DOM后运行
         setInterval(()=>this.tick3(),1000)//为什么不能写成setInterval(this.tick3,1000)？因为在setInterval中，this指向的是global
     }
-    tick3(){//使用setState改变state的值，每当检测到state改变，就自动调用Clock3的render方法
+    tick3(){//使用setState改变state的值，每当使用setState()改变state的值，就自动调用Clock3的render方法重新渲染
         this.setState({date:new Date()})
     }
     render(){
@@ -110,3 +111,35 @@ class Clock3 extends React.Component{
     }
 }
 ReactDOM.render(<Clock3 />,document.getElementById("root7"))
+
+
+//7.事件处理
+// React 元素的事件处理和 DOM 元素的很相似，但是有一点语法上的不同:
+// React 事件的命名采用小驼峰式（camelCase），而不是纯小写。
+// 使用 JSX 语法时你需要传入一个函数作为事件处理函数，而不是一个字符串形式的函数调用。
+//注意：若简单传入函数名作为事件处理函数，那么这个函数内部的this会有意外的指向
+//解决方案：在构造器中用bind为事件处理函数绑定this、使用 class fields 语法，或者在回调中使用箭头函数
+//7.1为一个组件添加事件处理函数
+class Mybutton1 extends React.Component{
+    constructor(props){
+        super(props)
+    }
+    myClick(){
+        console.log("class方式创建的按钮被点了");
+    }
+    render(){
+        return <button onClick={this.myClick}>我是用class创建的按钮</button>
+    }
+}
+ReactDOM.render(<Mybutton1 />,document.getElementById("root8"))
+
+
+function Mybutton2 (){
+    function myClick(){
+        console.log("function方式创建的按钮被点了");
+    }
+    return <button onClick={myClick}>我是用function创建的按钮</button>
+}
+ReactDOM.render(<Mybutton2 />,document.getElementById("root9"))
+
+
