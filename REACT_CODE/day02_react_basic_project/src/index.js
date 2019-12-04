@@ -160,7 +160,7 @@ class MyComponent4 extends React.Component{
            <div>
                <button onClick={this.myclick}>点我</button>
                 {this.state.notLogIn && <input type="text" placeholder="请输入用户名"/>}
-                {this.state.notLogIn?null:<input type="text" placeholder="请输入密码"/>}
+                {this.state.notLogIn?<input type="text" placeholder="请输入密码"/>:null}
                 {console.log("重新运行了MyComponent4组件的render")}
               
            </div>
@@ -194,3 +194,24 @@ class Root11Father extends React.Component{
     }
 }
 ReactDOM.render(<Root11Father/>,document.getElementById("root11"))
+
+//9、列表&key
+//9.1使用Array.prototype.map()渲染一个简单的列表
+const arr1=[1,2,3,4,5]
+const list=arr1.map(num=><li>{num}</li>)
+function Root12Component(params) {
+    return(
+        <ul>{list}</ul>
+    )
+}
+ReactDOM.render(<Root12Component/>,document.getElementById("root12"))
+
+//9.2在一个组件中渲染列表并为其添加key
+// 一个好的经验法则是：在 map() 方法中的元素需要设置 key 属性。
+// key 只是在兄弟节点之间必须唯一
+function Root13Component(params){
+    const list=params.arr.map(num=><li key={num}>{num}</li>);//添加key属性
+    return <ul>{list}</ul>
+}
+const arr2=[6,7,8,9,10]
+ReactDOM.render(<Root13Component arr={arr2}/>,document.getElementById("root13"))
