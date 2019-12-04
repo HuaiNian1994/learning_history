@@ -143,3 +143,54 @@ function Mybutton2 (){
 ReactDOM.render(<Mybutton2 />,document.getElementById("root9"))
 
 
+//8、条件渲染
+//利用与运算符 && 和三目运算符进行渲染
+// 在 JavaScript 中，true && expression 总是会返回 expression, 而 false && expression 总是会返回 false
+class MyComponent4 extends React.Component{
+    constructor(props){
+        super(props)
+        this.state={notLogIn:true}
+    }
+    myclick=()=>{//使用 class fields 语法,确保this指向了MyComponent4创建的实例
+        this.setState({notLogIn:!this.state.notLogIn})
+        console.log(this.__proto__==MyComponent4.prototype);//true    
+    }
+    render(){
+        return(//再次强调：组件return的内容需要用一个div包裹
+           <div>
+               <button onClick={this.myclick}>点我</button>
+                {this.state.notLogIn && <input type="text" placeholder="请输入用户名"/>}
+                {this.state.notLogIn?null:<input type="text" placeholder="请输入密码"/>}
+                {console.log("重新运行了MyComponent4组件的render")}
+              
+           </div>
+        )
+    }
+}
+ReactDOM.render(<MyComponent4/>,document.getElementById("root10"))
+//当子组件已被父组件渲染时如何隐藏自己：
+function Root11Son(params) {
+    if(!params.show){
+        return null
+    }
+    return <h2 style={{display:"inline-block"}}>Root11son</h2>//为了便于观看，故将其设置为行内块
+}
+class Root11Father extends React.Component{
+    constructor(props){
+        super(props)
+        this.state={val:false}
+    }
+    myclick=()=>{
+        this.setState({val:!this.state.val})  
+    }
+    render(){     
+        return(
+            <div>
+                <h2 style={{display:"inline-block"}}>Root11Father</h2>
+                <button onClick={this.myclick}>toggle</button>
+                <Root11Son show={this.state.val}></Root11Son>
+            </div>
+        )
+    }
+}
+ReactDOM.render(<Root11Father/>,document.getElementById("root11"))
