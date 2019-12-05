@@ -215,3 +215,86 @@ function Root13Component(params){
 }
 const arr2=[6,7,8,9,10]
 ReactDOM.render(<Root13Component arr={arr2}/>,document.getElementById("root13"))
+
+
+//10.表单
+//令state成为表单的唯一数据源，通过事件处理函数控制表单的内容和行为
+class Root14Component extends React.Component{
+    constructor(props){
+        super(props)
+        this.state={value:""}
+    }
+    changeHandler(e){
+        this.setState({value:e.target.value.toUpperCase()})
+    }
+    submitHandler(e){
+        console.log(this.state.value);
+        e.preventDefault();
+    }
+    render(){
+        return(
+            <form  onSubmit={(e)=>this.submitHandler(e)}>
+                <input type="text" value={this.state.value} placeholder="请输入" onChange={(e)=>this.changeHandler(e)}/>
+                <button type="submit">提交</button>
+            </form>
+        )
+    }
+}
+ReactDOM.render(<Root14Component />,document.getElementById("root14"))
+
+class Root15Component extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {value: 'mango'};//在react中，使用value属性来设定默认选项，而不是用selected属性
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
+  handleSubmit(event) {
+    alert('你喜欢的风味是: ' + this.state.value);
+    event.preventDefault();
+  }
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          选择你喜欢的风味:
+          <select value={this.state.value} onChange={this.handleChange}>
+            <option value="grapefruit">葡萄柚</option>
+            <option value="lime">酸橙</option>
+            <option value="coconut">椰子</option>
+            <option value="mango">芒果</option>
+          </select>
+        </label>
+        <input type="submit" value="提交" />
+      </form>
+    );
+  }
+}
+ReactDOM.render(<Root15Component />,document.getElementById("root15"))
+
+
+//处理多个input输入：给每个元素添加 name 属性，并让处理函数根据 event.target.name 的值选择要执行的操作
+class Root16Component extends React.Component{
+    constructor(props){
+        super(props)
+        this.state={in1:"",in2:"",in3:""}//分别设定属性,为了方便属性与input的name同名
+    }
+    changeHandler=(e)=>{
+        this.setState({[e.target.name]:e.target.value.toUpperCase()})//核心的一步
+    }
+    render(){
+        console.log("render of Root16Component");
+        return(
+            <form onChange={this.changeHandler}>
+                <input type="text" name="in1" value={this.state.in1}/>
+                <input type="text" name="in2" value={this.state.in2}/>
+                <input type="text" name="in3" value={this.state.in3}/>
+            </form>
+        )
+    }
+}
+ReactDOM.render(<Root16Component />,document.getElementById("root16"))
