@@ -281,7 +281,7 @@ ReactDOM.render(<Root15Component />,document.getElementById("root15"))
 class Root16Component extends React.Component{
     constructor(props){
         super(props)
-        this.state={in1:"",in2:"",in3:""}//分别设定属性,为了方便属性与input的name同名
+        this.state={in1:"",in2:"",in3:""}//分别设定属性，其与input的name同名
     }
     changeHandler=(e)=>{
         this.setState({[e.target.name]:e.target.value.toUpperCase()})//核心的一步
@@ -298,3 +298,39 @@ class Root16Component extends React.Component{
     }
 }
 ReactDOM.render(<Root16Component />,document.getElementById("root16"))
+
+//11.兄弟组件间的数据共享
+//将要共享的数据放到他们的父组件中，由父组件的props传值给子组件。
+//并在父组件中定义“设定各子组件所共享的数据”的方法，在这些方法中setState以请求元素的重新渲染
+//例子：两个输入框间数据的实时相互转换,使后者的值永远比前者小1
+//父亲以props传递事件处理函数和当前的state给儿子，儿子以调用父组件事件处理函数的方式更改父组件的state
+class Root17Component extends React.Component{
+    constructor(props){
+        super(props)
+        this.state={val:5}
+    }
+    son1Handler=(e)=>{
+        const value=parseInt(e.target.value)
+        this.setState({val:value?value:0})
+    }
+    son2Handler=(e)=>{
+        const value=parseInt(e.target.value)
+        this.setState({val:value?value+1:1})
+    }
+
+    render(){
+        const value=this.state.val
+        return(
+            <div>
+                <Root17Son   sonval={{func:this.son1Handler,val:this.state.val}}/>
+                <Root17Son   sonval={{func:this.son2Handler,val:this.state.val-1}}/>
+            </div>
+        )
+    }
+}
+function Root17Son(props){
+    return(
+        <input type="text" onChange={props.sonval.func} value={props.sonval.val}/>
+    )
+}
+ReactDOM.render(<Root17Component />,document.getElementById("root17"))
