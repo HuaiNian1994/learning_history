@@ -334,3 +334,40 @@ function Root17Son(props){
     )
 }
 ReactDOM.render(<Root17Component />,document.getElementById("root17"))
+
+//12.组合&继承
+//12.1 组件的props.children的传递
+class Root18Component extends React.Component{
+    constructor(props){
+        super(props)
+    }
+    render(){
+        return (
+            <div>
+                <h2>我是Root18Component</h2>
+                <div>组件标签围出的内容放在这：{this.props.children}</div>
+            </div>
+        )
+    }
+}
+const Root18Context=<h3>我是Root18中的内容 </h3>
+ReactDOM.render(<Root18Component>{Root18Context}</Root18Component>  ,document.getElementById("root18"))
+
+////12.2 不使用组件的props.children，自行在组件上打洞：
+class Root19Component extends React.Component{
+    constructor(props){
+        super(props)
+    }
+    render(){
+        return (
+            <div>
+                <h2>我是Root18Component</h2>
+                <div style={{display:"inline-block"}}>{this.props.leftContent}</div>
+                <div style={{display:"inline-block",marginLeft:"80%" }}>{this.props.rightContent}</div>
+            </div>
+        )
+    }
+}
+const Root19left=<h3>我是Root19左边的洞 </h3>
+const Root19right=<h3>我是Root19右边的洞 </h3>
+ReactDOM.render(<Root19Component leftContent={Root19left} rightContent={Root19right}/>  ,document.getElementById("root19"))
