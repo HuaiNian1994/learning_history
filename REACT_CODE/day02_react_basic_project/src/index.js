@@ -361,7 +361,7 @@ class Root19Component extends React.Component{
     render(){
         return (
             <div>
-                <h2>我是Root18Component</h2>
+                <h2>我是Root19Component</h2>
                 <div style={{display:"inline-block"}}>{this.props.leftContent}</div>
                 <div style={{display:"inline-block",marginLeft:"80%" }}>{this.props.rightContent}</div>
             </div>
@@ -371,3 +371,6 @@ class Root19Component extends React.Component{
 const Root19left=<h3>我是Root19左边的洞 </h3>
 const Root19right=<h3>我是Root19右边的洞 </h3>
 ReactDOM.render(<Root19Component leftContent={Root19left} rightContent={Root19right}/>  ,document.getElementById("root19"))
+
+//13.hook
+//Hook 是 React 16.8 的新增特性。它可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性。
