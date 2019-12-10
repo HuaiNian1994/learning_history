@@ -107,7 +107,7 @@ ReactDOM.render(C(Com1),document.getElementById("root1"))
   > - componentWillMount()
   > - render()
 > - componentDidMount()
-  
+
 - **组件运行阶段**：按需，根据 props 属性 或 state 状态的改变，有选择性的 执行 0 到多次
   
   > - componentWillReceiveProps(nextProps)
@@ -115,7 +115,7 @@ ReactDOM.render(C(Com1),document.getElementById("root1"))
   > - componentWillUpdate(nextProps, nextState)
   > - render()
 > - componentDidUpdate(prevProps, prevState)
-  
+
 - **组件销毁阶段**：一辈子只执行一次
   
   > componentWillUnmount()
@@ -189,13 +189,19 @@ React.Component.prototype.$http = axios
 // 全局配置请求的URL根路径
 axios.defaults.baseURL = 'http://39.106.32.91:3000';//这只是举例
 
+
+
 ~~~
 
 
 
 
 
-### 使用ES7 的await 和 async 优化promise的调用
+#### 使用ES7 的await 和 async 优化promise的调用
+
+正如static是变量的修饰符，async是function的修饰符，await是promise对象的修饰符。
+
+此外，await只能用于被async修饰的函数中，被await修饰的promise对象会返回其内部操作的最终结果
 
 ~~~js
 //ES6实现向测试地址发起get请求
@@ -216,4 +222,86 @@ getInfo=async(){
     console.log(data)   
 }
 ```
+
+
+
+#### Axios发起post请求
+
+法一：
+
+~~~js
+//这段代码放于一个类中
+postInfo=()=>{
+// 如果要发起Post请求，同时给服务器提交参数，则提交给服务器的数据不能写成对象，需要自己拼接成查询字符串
+    this.$http.post('http://39.106.32.91:3000/api/post','name=zs&age=22').then(res => 		{
+      	console.log(res)
+      }) 
+}
+~~~
+
+法二：，全局配置一下 transformRequest ，从而在post请求时发送对象
+
+~~~js
+//下列代码放在React.Component.prototype.$http = axios之前
+//发起 Post 请求之前，会先调用transformRequest 对要发送给服务器的数据做一层包装转换
+//至于怎么包装怎么转换，看我们自己
+axios.defaults.transformRequest = [function (data, headers) { 
+  // 在这里，我们要想办法，把 data 从 对象  { name: zs, age: 22 } ，转成 查询字符串   name=zs&age=22
+
+  const arr = []
+  for (let key in data) {
+    arr.push(key + '=' + data[key])
+  }
+  return arr.join('&')
+}]
+~~~
+
+```JS
+//这段代码放于一个类中
+postInfo=()=>{
+    //直接发送对象
+    this.$http.post('http://39.106.32.91:3000/api/post',{
+        name:zs,
+        age:22
+    }).then(res =>{
+      	console.log(res)
+      }) 
+}
+```
+
+
+
+
+
+### 在React.Component.prototype上挂载全局组件都可用的方法
+
+~~~js
+React.Component.prototype.xixi=function(){
+    //函数体
+}
+~~~
+
+
+
+
+
+### ES6模板字符串
+
+我们用普通引号 `''`  和 `""`标识一个字符串：
+
+用反引号``标识一个模板字符串。该字符串可接收变量。形式为${变量名}
+
+~~~js
+//例子：给react组件全局挂载一个日期转换函数
+React.Component.prototype.dateFormat=function (){
+    const now=new Date()
+    const y=now.getFullYear()
+    const m=(now.getMonth()+1).toString().padStart(2,"0")
+    const d=now.getDate().toString().padStart(2,"0")
+    const hh=now.getHours().toString().padStart(2,"0")
+    const mm=now.getMinutes().toString().padStart(2,"0")
+    const ss=now.getSeconds().toString().padStart(2,"0")
+    return `${y}-${m}-${d} ${hh}:${mm}:${ss}`
+}
+~~~
 
