@@ -4,28 +4,30 @@
 
 安装：
 
-+ `npm i babel-core babel-loader babel-plugin-transform-runtime -D`
+- 运行`npm i @babel/core babel-loader @babel/runtime  -D`
+- 支持所有最新的ES标准特性`npm i @babel/preset-env  -D`
 
-+ `npm i babel-preset-env babel-preset-stage-0 -D`
+- 项目根目录添加 `.babelrc` 配置文件
 
-webpack.config.js的配置
+  ```json
+  {
+    "presets": ["@babel/preset-env"]
+  }
+  ```
 
-~~~js
-module={
-    rules:[
-        { test: /\.js|jsx$/, use: 'babel-loader', exclude: /node_modules/ }// 别忘记添加 exclude 排除项
-    ]
-}
-~~~
+- 在webpack.config.js中的向外暴露的对象内设定babel-loader配置项：
 
-项目根目录添加 `.babelrc` 配置文件
+  ```js
+     module: { //要打包的第三方模块
+         rules: [//设定打包规则
+           { test: /\.js|jsx$/, use: 'babel-loader', exclude: /node_modules/ }
+         ]
+     }
+  ```
 
-~~~js
-{
-  "presets": ["env", "stage-0", "react"],
-  "plugins": ["transform-runtime"]
-}
-~~~
+
+
+
 
 
 
@@ -49,7 +51,7 @@ module={
 
 ### url-loader 
 
-作用：打包处理 字体文件 
+作用：打包处理字体文件和图片文件
 
 安装：`npm i url-loader -D` 
 
@@ -60,7 +62,9 @@ webpack.config.js的配置
 ~~~js
 module={
     rules:[
-      { test: /\.ttf|woff|woff2|eot|svg$/, use: 'url-loader' }
+      { test: /\.ttf|woff|woff2|eot|svg$/, use: 'url-loader' },
+      { test: /\.jpg|png|gif|bmp$/, use: 'url-loader' },
+        
     ]
 }
 ~~~

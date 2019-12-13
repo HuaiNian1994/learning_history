@@ -1,7 +1,7 @@
 import React from "react"
 //在一个框架中，要使用路由，一定要有 【路由规则、路由链接、呈现路由组件的容器】
-import {HashRouter,Route,Link} from "react-router-dom"
-//一个项目只能使用一次HasnRouter
+import { HashRouter, Route, Link, Redirect } from 'react-router-dom'
+//一个项目只能使用一次HashRouter
 
 //导入子组件
 import Link1 from "./link1.jsx"
@@ -19,7 +19,13 @@ export default class Main extends React.Component{
                 <Link to="/l2">链接二</Link>
                 <Link to="/l3">链接三</Link>
                 <hr/>
+
+                {/* 利用重定向设定主页 */}
+                <Route exact path="/" render={()=><Redirect to="/l1"></Redirect>}></Route>
+
                 <Route path="/l1" component={Link1} exact></Route>
+
+                
                 {/* “:”意味着：只要是链接里有内容就能匹配到 本例子是用"/l1/:"匹配到了"/l1/1234" */}
                 {/* “:” 后跟自定义的参数，可在被匹配到的组件中接受该参数*/}
                 <Route path="/l1/:my1stParam" component={Link1_son1}></Route>
