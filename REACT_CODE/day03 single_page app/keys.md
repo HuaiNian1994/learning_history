@@ -160,3 +160,10 @@ Rendering a `<Redirect>` will navigate to a new location. The new location will 
 
    > 总结: 第一个.then拿到的是中间数据;  第二个.then中拿到的才是最终的数据;
 
+
+
+
+
+### height:100% =>flex:1
+
+占满剩余区域
