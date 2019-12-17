@@ -130,6 +130,30 @@ Yarn 和 React Native的命令行工具（react-native-cli）
    ![关于RN项目中每个文件的作用](mynote_images\关于RN项目中每个文件的作用.png)
    
    
+   
+   
+   
+   ### 解决应用界面空白的问题：
+   
+   1.在android/app/src/main目录下手动创建一个名为assets的文件夹
+   
+   2.cmd中，在项目根目录运行如下命令，从而手动生成index.android.bundle：
+   
+   `react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/`
+   
+   （1）--platform：平台
+   
+   （2） --dev：开发模式
+   
+   （3） --entry-file：条目文件
+   
+   （4）--bundle-output：bundle文件生成的目录
+   
+   （5）--assets-dest：资源文件生成的目录
+   
+   这样我们的‘index.android.bundle’就生成完毕了，下面我们再来运行一下。
+   
+   
 
 
 
