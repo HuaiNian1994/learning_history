@@ -8,107 +8,91 @@
 
 import React from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
   ScrollView,
-  View,
   Text,
-  StatusBar,
+  TextInput,
+  Image,
+  Button,
+  TouchableOpacity,
+  TouchableNativeFeedback,
+  ActivityIndicator,
+  View,
 } from 'react-native';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
 
-const App: () => React$Node = () => {
-  return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
+const MyStyle = StyleSheet.create({
+  wrapper: {
+    //横向居中包含的所有元素
+
+
+    //二者联合使用可使元素纵向居中
+    flex: 1
+  },
+  myInput: {
+    width: 200,
+    borderWidth: 2,
+    borderRadius: 10
+  },
+  myImg: {
+    width: 300,
+    height: 300,
+    borderWidth: 2,
+    borderColor: "lightblue"
+  },
+  text2: {
+    width: 300,
+    height: 300,
+    backgroundColor: "lightgreen", 
+    justifyContent:"center"
+  }
+})
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = { inpval: "xixi", speak: "" }
+  }
+  myClick = () => {
+    console.warn("哥哥你点到我了")
+    this.setState({ inpval: "hiahiahia" })
+  }
+  txtchange = (e) => {
+    console.warn("文本改变");
+    this.setState({ inpval: e.target.value, speak: this.state.speak + "~" })
+  }
+  render() {
+    const imageURL = "https://pic4.zhimg.com/80/v2-01e5492a5f70df0a8d4f65fc4f75f979_hd.jpg"
+    const testContent="TouchableNativeFeedback触控测试区触控测试区触控测试区触控测试区触控测试区触控测试区触控测试区触控测试区触控测试区触控测试区"
+    
+    return (
+
+      <ScrollView style={MyStyle.wrapper} contentContainerStyle={{ alignItems: "center" }}>
+        <Text>hi,HuaiNian{this.state.speak}</Text>
+        <TextInput style={MyStyle.myInput} onChange={(e) => { this.txtchange(e) }} value={this.state.inpval}></TextInput>
+        <Image source={require("./src/images/03.png")} style={MyStyle.myImg} ></Image>
+        <Button title="哥哥点我!" onPress={this.myClick}> </Button>
+        <TouchableOpacity >
+          <Image source={{ uri: imageURL }} style={{ width: 300, height: 300 }}></Image>
+        </TouchableOpacity>
+        <ActivityIndicator></ActivityIndicator>
+        <TouchableNativeFeedback background={TouchableNativeFeedback.SelectableBackground()}>
+          <View style={MyStyle.text2}>
+            <Text >{testContent}</Text>
           </View>
-        </ScrollView>
-      </SafeAreaView>
-    </>
-  );
-};
+        </TouchableNativeFeedback>
+        
+      </ScrollView>
+      
+
+    )
+  }
+}
+
+
+
 
 const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
+
 });
 
 export default App;

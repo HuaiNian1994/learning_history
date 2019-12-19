@@ -117,7 +117,7 @@ Yarn 和 React Native的命令行工具（react-native-cli）
 
    ![关于 packager server 的作用](mynote_images\关于 packager server 的作用.bmp)
 
-   4.2连接不上packager server如何配置：
+   4.2连接不上packager server如何配置：（新版本的RN支持不联网，直接通过USB获取更新数据）
 
    ![关于如何配置Packager Server 的步骤说明](mynote_images\关于如何配置Packager Server 的步骤说明.png)
 
@@ -131,9 +131,37 @@ Yarn 和 React Native的命令行工具（react-native-cli）
    
    
    
+   ### [解决运行'react-native start'时的报错 error Invalid regular expression: ](https://stackoverflow.com/questions/58120990/how-to-resolve-the-error-on-react-native-start)
+   
+     `node v12.11.0` 之后会有这个bug。于项目找到 \node_modules\metro-config\src\defaults\blacklist.js 文件
+   
+   之后把
+   
+   ~~~js
+   var sharedBlacklist = [
+     /node_modules[/\\]react[/\\]dist[/\\].*/,
+     /website\/node_modules\/.*/,
+     /heapCapture\/bundle\.js/,
+     /.*\/__tests__\/.*/
+   ];
+   ~~~
+   
+   改为：
+   
+   ~~~js
+   var sharedBlacklist = [
+     /node_modules[\/\\]react[\/\\]dist[\/\\].*/,
+     /website\/node_modules\/.*/,
+     /heapCapture\/bundle\.js/,
+     /.*\/__tests__\/.*/
+   ];
+   ~~~
    
    
-   ### 解决应用界面空白的问题：
+   
+   
+   
+   ### 解决安装应用后其界面空白的问题：
    
    1.在android/app/src/main目录下手动创建一个名为assets的文件夹
    
@@ -152,6 +180,18 @@ Yarn 和 React Native的命令行工具（react-native-cli）
    （5）--assets-dest：资源文件生成的目录
    
    这样我们的‘index.android.bundle’就生成完毕了，下面我们再来运行一下。
+   
+   
+   
+   
+   
+   
+   
+   ### vscode ——open Command Palette
+   
+   ctrl+P
+   
+   
    
    
 

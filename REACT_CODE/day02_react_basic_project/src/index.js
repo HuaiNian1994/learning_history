@@ -375,4 +375,27 @@ ReactDOM.render(<Root19Component leftContent={Root19left} rightContent={Root19ri
 //13.hook
 //Hook 是 React 16.8 的新增特性。它可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性。
 
-
+//14、交互练习
+class Root20Component extends React.Component{
+    constructor(props){
+        super(props)
+        this.state={val:"xixi",speak:"呜呜呜"}
+    }
+    myclick=()=>{
+        this.setState({val:"hiahia"})
+    }
+    mychange=(e)=>{
+        this.setState({val:e.target.value,speak:e.target.value})
+    }
+    
+    render(){
+        return (
+            <div>
+                <input type="text" value={this.state.val} onChange={(e)=>{this.mychange(e)}}/>
+                <button onClick={this.myclick}>哥哥点我</button>
+                <span >{this.state.speak}</span>
+            </div>
+        )
+    }
+}
+ReactDOM.render(<Root20Component></Root20Component>,document.getElementById("root20"))
