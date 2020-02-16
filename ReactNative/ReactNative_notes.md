@@ -5,7 +5,7 @@
 1. 创建样式表：
 
    ~~~jsx
-   const MyStyle=Stylesheet.create({
+   const MyStyle=StyleSheet.create({
        class1:{
            textAlign:"center"
        },
@@ -22,9 +22,13 @@
 
 3. 在 网页中，一个 div 盒子，默认 没有启用 `flexbox` 布局，所以需要手动 设置 `display: flex;`；但是， 在 RN 中，默认 每个 `View` 组件，都是启用了 `flexbox` 布局的；
 
-4. 注意：在 网页中，默认 主轴 是 横向的（从左到右），用 `justifyContent` 来进行控制； 默认网页中，侧轴 是 纵向的（从上到下）， 用 `alignItems` 来进行控制；
+4. 注意：在 网页中，默认 主轴 是 横向的（从左到右），侧轴 是 纵向的（从上到下）；但是在 RN 中，默认主轴是纵向的， 默认 侧轴 是横向的。
 
-   但是在 RN 中，默认主轴是纵向的，因此，``justifyContent` 控制的是纵向上的对齐方式； 默认 侧轴 是横向的，因此，`alignItems `控制 水平方向上的对其方式。
+   但相同点是：
+   
+   + flex-direction（flexDirection）决定了谁是主轴。
+   
+   + 主轴方向的排列均由`justifyContent`控制，侧轴方向的排列均由`alignItems`控制。
 
 
 
@@ -390,7 +394,10 @@ console.warn(this.props.age)
          >
            <Home></Home>
    </TabNavigator.Item>
+   ```
 ```
    
    
 
+
+```

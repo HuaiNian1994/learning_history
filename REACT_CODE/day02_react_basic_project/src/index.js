@@ -8,7 +8,7 @@ ReactDOM.render(myele,document.getElementById("root0"))
 
 //2.创建一个最基本的react组件,其首字母必须大写
 function MyComponent(){
-    return <h2>我的第一个组件</h2>
+    return <h2>我的第er个组件</h2>
 }
 const xixi=<MyComponent></MyComponent>
 ReactDOM.render(xixi,document.getElementById("root1"))
@@ -102,6 +102,8 @@ class Clock3 extends React.Component{
     }
     componentDidMount(){//组件挂载到DOM后运行
         setInterval(()=>this.tick3(),1000)//为什么不能写成setInterval(this.tick3,1000)？因为在setInterval中，this指向的是global
+        console.log("xixi");
+        
     }
     tick3(){//使用setState改变state的值，每当使用setState()改变state的值，就自动调用Clock3的render方法重新渲染
         this.setState({date:new Date()})
@@ -337,6 +339,7 @@ ReactDOM.render(<Root17Component />,document.getElementById("root17"))
 
 //12.组合&继承
 //12.1 组件的props.children的传递
+//所谓props.children，其实就是该组件的innerHTML
 class Root18Component extends React.Component{
     constructor(props){
         super(props)
@@ -350,10 +353,10 @@ class Root18Component extends React.Component{
         )
     }
 }
-const Root18Context=<h3>我是Root18中的内容 </h3>
+const Root18Context=<h3>我是Root18中的内容<span style={{color:"blue"}}>嘻嘻</span> </h3>
 ReactDOM.render(<Root18Component>{Root18Context}</Root18Component>  ,document.getElementById("root18"))
 
-////12.2 不使用组件的props.children，自行在组件上打洞：
+////12.2 不使用组件的props.children，自定义props的属性从而在组件上打洞：
 class Root19Component extends React.Component{
     constructor(props){
         super(props)

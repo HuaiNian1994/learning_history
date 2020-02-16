@@ -9,10 +9,13 @@
 ~~~jsx
 //map 对一个元素为对象的数组的内容进行包装
 const htmlForm=commentArr.map(item=><Mycomponent {...item} key="item.id"></Mycomponent>)
-//数组的克隆
+//数组的拷贝(只遍历一层，浅拷贝)
 const newArr=[...oldArr]
+//代替concat连接数组
+arr=[...arr1,...arr2]
+
 //对象的克隆
-const newObj=[...oldObj]
+const newObj={...oldObj}
 ~~~
 
 

@@ -1,3 +1,20 @@
+
+
+React Router 包含3个库, react-router、react-router-dom、和 react-router-native。react-router 提供最基本的路由功能，实际使用，我们不会直接安装 react-router,而是根据应用运行的环境选择安装 react-router-dom(在浏览器中使用)或 react-router-native(在 react-native中使用)。react-router-dom 和 react-router-native 都依赖 react-router,所以在安装时， react-router 也会自动安装。
+创建 Web应用，使用
+
+```
+npm install react-router-dom
+```
+
+创建 navtive 应用，使用
+
+```
+ npm install react-router-native
+```
+
+
+
 ### 组件的props收到的路由参数
 
 - #### [this.props.match](https://reacttraining.com/react-router/web/api/match)
